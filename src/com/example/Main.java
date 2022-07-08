@@ -21,8 +21,8 @@ public class Main {
         }
         System.out.printf("输出的最小值:%d\n",minNum);
 
-        // 函数式编程:取数组最小值
-        minNum = IntStream.of(nums).min().getAsInt();
+        // 函数式编程:取数组最小值 -- 多线程模式
+        minNum = IntStream.of(nums).parallel().min().getAsInt();
         System.out.printf("输出的最小值:%d\n",minNum);
     }
 }
