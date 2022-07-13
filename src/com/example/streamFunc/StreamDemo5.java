@@ -94,7 +94,7 @@ enum Grade {
 public class StreamDemo5 {
 
     public static void main(String[] args) {
-        // ²âÊÔÊý¾Ý
+        // 学生信息
         List<Student> students = Arrays.asList(
                 new Student("1", 10, Gender.MALE, Grade.ONE),
                 new Student("2", 9, Gender.MALE, Grade.THREE),
@@ -109,16 +109,15 @@ public class StreamDemo5 {
                 new Student("11", 14, Gender.FEMALE, Grade.FOUR),
                 new Student("12", 13, Gender.MALE, Grade.FOUR));
 
-        // µÃµ½ËùÓÐÑ§ÉúµÄÄêÁäÁÐ±í
         // s -> s.getAge() --> Student::getAge , ²»»á¶àÉú³ÉÒ»¸öÀàËÆ lambda$0ÕâÑùµÄº¯Êý
         Set<Integer> ages = students.stream().map(Student::getAge)
                 .collect(Collectors.toCollection(TreeSet::new));
-        System.out.println("ËùÓÐÑ§ÉúµÄÄêÁä:" + ages);
+        System.out.println("年龄树:" + ages);
 
         // 计算collections的汇总信息
         IntSummaryStatistics agesSummaryStatistics = students.stream()
                 .collect(Collectors.summarizingInt(Student::getAge));
-        System.out.println("ÄêÁä»ã×ÜÐÅÏ¢:" + agesSummaryStatistics);
+        System.out.println("学生年龄汇总信息:" + agesSummaryStatistics);
 
         // stream集合分块
         Map<Boolean,List<Student>> genders = students.stream().collect(Collectors.partitioningBy(s->s.getGender() == Gender.MALE));
@@ -127,6 +126,7 @@ public class StreamDemo5 {
         //stream集合分组
         Map<Grade,List<Student>> gradeListMap = students.stream().collect(Collectors.groupingBy(Student::getGrade));
         System.out.println("学生列表:"+gradeListMap);
+
         //stream得到所有学生班级数量
         Map<Grade,Long> gradesCount = students.stream().collect(Collectors.groupingBy(Student::getGrade,Collectors.counting()));
         System.out.println("学生班级列表数量:"+gradesCount);
